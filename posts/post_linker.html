@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Blue Stoplight | Generating lyrics with GPT</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section id="article">
+        <div class="article-heading">
+            <span>Generating lyrics with GPT</span>
+            <a href="../index.html"><h3>The Blue Stoplight</h3></a>
+            <span>A very basic AI based on a logic similar to nanoGPT that generates song lyrics (with more or less success)</span>
+        </div>
+
+        <div class="article-item-individual">
+            <h2>Table of Contents</h2>
+            <div class="toc">
+                <ol>
+                    <a href="#source"><li>Source</li></a>
+                    <a href="#inspiration"><li>Inspiration</li></a>
+                    <a href="#dataset"><li>Dataset</li></a>
+                    <a href="#training"><li>Training and Fine-tuning</li></a>
+                    <a href="#result"><li>Result</li></a>
+                    <a href="#conclusion"><li>Conclusion</li></a>
+                </ol>
+            </div>
+
+            <h2 id="source">Source</h2>
+            <p>A <b>massive</b> portion of my code is from <u><a target="_blank" href="https://www.youtube.com/watch?v=kCc8FmEb1nY">this video</a></u> by Andrej Karpathy, the creator of nanoGPT.</p>
+
+            <h2 id="inspiration">Inspiration</h2>
+            <p>He uses the Tiny Shakespeare dataset to generate text which looks like Shakespeare. This gave me the ideaa to follow along his video, and create an AI that writes lyrics like Linkin Park. It wouldn't be a project of mine, if it wouldn't include LP to some extent. :P</p>
+
+            <h2 id="dataset">Dataset</h2>
+            <p>I collected the all lyrics of songs from Hybrid Theory and Meteora, the lyrics of Lost Demos, and the lyrics of some other Meteora demos.</p>
+            <p>It ended up being about 50 000 characters, which is rather small, and led to some issues with fine-tuning the training.</p>
+
+            <h2 id="training">Training and Fine-tuning</h2>
+            <p>Because my dataset is so small, I couldn't use the settings Karpathy used in his video, since Tiny Shakespeare is much bigger. I did try those overkill parameters, but the AI just wrote the real lyrics at that point.</p>
+            <p>So I had to improvise a bit. I tried many different variations, and unfortunately I didn't saved any of them, so I can only share the latest one.</p>
+            <p>Please note, that even though I tried my best to understand all the concepts introduced in the video, and what everything does, I'm still quite confused about how to code actually works, so these parameters are most likely not optimal, at all.</p>
+
+            <pre>
+                <code>
+    batch_size = 64
+    block_size = 256
+    max_iters = 750
+    eval_interval = 100
+    learning_rate = 1e-2
+    eval_iters = 5
+    n_embd = 384
+    n_head = 6
+    n_layer = 6
+    dropout = 0.2
+                </code>
+            </pre>
+
+            <h2 id="result">Result</h2>
+            <p>These settings led to results like this.</p>
+
+            <pre>
+                <code>
+    I know I've got a face in me
+    Ginde, my head
+    How any for my far rhy
+    Forgot all thing, you fou watchear me
+    You t ove what I you tried and you think ing me to?
+    Do make thin' it go awfell inside the way
+    (Withing beght no a memore dar wight?
+    Do I somewhy you not trustimes I say
+    You don't want to me think you this gave me one
+    (You live what you've learned)
+    You want someone to hurt like you
+    (You live what you've learned)
+    You wanna share what you have been through
+    (You live what you've learned)
+                </code>
+            </pre>
+
+            <p>The overkill settings led to results like this.</p>
+
+            <pre>
+                <code>
+    , Dignoress they made
+    Try how to make myself get back up on my feet
+    And I ever think about is this
+    All the tiring time between
+    And how trying to put my trust in you
+    Just takes so much out of me
+
+    Take everything from the inside
+    And throw it all away
+    'Cause I swear for the last time
+    I won't trust myself with you
+
+    I won't waste myself on you
+    You
+    You
+    Waste myself on you
+    You
+    You
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+    Don't stay
+    Forget our memories
+    Forget our possibilities
+    What you were changing me into
+    (Just give me myself back and)
+    Don't stay
+    Forget our memories
+    Forget our possibilities
+    Take all your faithlessness with you
+    (Just give me myself back and)
+    Don't stay
+    Don't stay
+    Don't stay
+
+    When this began
+    I had nothing to say
+    And I get lost in the nothingness inside of me
+    (I was confused)
+    And I let it all out to find
+    That I'm not the only person with these things in mind
+                </code>
+            </pre>
+
+            <p>Some other setting varients.</p>
+            <ul>
+                <li>Third generation</li>
+            </ul>
+
+            <pre>
+                <code>
+    I've let myself on things you wou
+    Iy take
+    No like I don't mapper what I'm hed of you
+    I've looke to you
+    I've lish you never srealed a knelft how I got that st you knew what it up me floor
+    Forgot up of you turn your shout ame
+    gothere dream, and it's waiting for the day
+    The light is coming soon to keep me up awake
+                </code>
+            </pre>
+
+            <ul>
+                <li>Forth generation</li>
+            </ul>
+
+            <pre>
+                <code>
+    A try about on the ming the ing  got fore
+    And ind then tyourtlike mis you
+    But I wan't on't seeptop toot heseime, to stirflith I datchin' doe plact
+    Sometching to sce do
+    Ance ithes ong got that he scessure
+
+    I done take feeplonts the my day
+    But indwet the the very dion
+
+    Af the doe fight yend that a thens drouble
+    So the awa pen
+                </code>
+            </pre>
+
+            <ul>
+                <li>Fifth generation</li>
+            </ul>
+
+            <pre>
+                <code>
+    Wishere that pre someten chat is mecught to fall of fe
+    Shing I can't prold of to what I see
+    Hometimes I whant I do an't tant when I'm trapped it's to way
+    I'll be hearith rest and ithin that you say
+    That the sayind just peoplack of me
+                </code>
+            </pre>
+
+            <h2 id="conclusion">Conclusion</h2>
+            <p>The problem with this attempt is that the better, and more understandable the generated text is, the more similar it is to real songs, which should be avoided. I'll probably return to this project later in the future to fix its issues. I think it is possible to make it work if I extend the dataset, and study what parameters work the best, <b>and why</b>.</p>
+            <p>If you're interested in the code, and want to understand GPTs better, or make your own project, please watch the video I linked at the top. It's very well made.</p>
+
+            <div class="article-img">
+                <img src="../res/linker.png">
+            </div>
+        </div>
+    </section>
+
+    <section id="footer">
+        <footer>
+            <div class="footer-content">
+                <p>© The Blue Stoplight 2024</p>
+            </div>
+        </footer>
+    </section>
+</body>
+</html>
