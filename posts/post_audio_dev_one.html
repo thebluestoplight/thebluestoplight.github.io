@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Blue Stoplight | Audio Programming Devlog</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section id="article">
+        <div class="article-heading">
+            <span>Audio Programming Devlog</span>
+            <a href="../index.html"><h3>The Blue Stoplight</h3></a>
+            <span>M4L learning project and progression on my JUCE synth</span>
+        </div>
+
+        <div class="article-item-individual">
+            <h2>Table of Contents</h2>
+            <div class="toc">
+                <ol>
+                    <a href="#introduction"><li>Introduction</li></a>
+                    <a href="#juce-synth"><li>JUCE Synth</li></a>
+                    <a href="#max-for-live-fm-synth"><li>Max for Live FM Synth</li></a>
+                    <a href="#conclusion"><li>Conclusion</li></a>
+                </ol>
+            </div>
+            
+            <h2 id="introduction">Introduction</h2>
+            <p>Today, I continued a project I already started a couple months back, which is a synthesizer plugin made in the JUCE Framework. I also decided to re-learn how to use Max for Live (M4L), so I followed along a video, and made some minor changes.</p>
+
+            <h2 id="juce-synth">JUCE Synth</h2>
+            <p>I'm learning JUCE as well, but I think I have a better understanding of it (at least for now) than M4L. Because of this, as a first step I'm following along a tutorial series by <u><a href="https://www.youtube.com/playlist?list=PLLgJJsrdwhPwJimt5vtHtNmu63OucmPck" target="_blank">TheAudioProgrammer</a></u>. I'm planning on extending the plugin after I finished laying down the basics.</p>
+            <p>Today I completed tutorial #4 and #5. I didn't make any notable changes, given that these videos are mostly about the back-end of the plugin; fixing the oscillator making a pop sound on MIDI input, and connecting the AudioParameterValueStreeState (APVTS) with the parameters and the UI. Although some code is related to adding sliders to the GUI, there wasn't really any styling involved.</p>
+            <p>Here are some code snippets from today's session:</p>
+
+            <pre>
+                <code>
+    void SynthVoice::updateADSR(const float attack, const float decay, const float sustain, const float release)
+    {
+        adsrParams.attack = attack;
+        adsrParams.decay = decay;
+        adsrParams.sustain = sustain;
+        adsrParams.release = release;
+    
+        adsr.setParameters(adsrParams);
+    }
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+    void AkiAudioProcessorEditor::resized()
+    {
+        const auto bounds = getLocalBounds().reduced(10);
+        const auto padding = 10;
+    
+        const auto sliderWidth = bounds.getWidth() / 4 - padding;
+        const auto sliderHeight = bounds.getWidth() / 4 - padding;
+        const auto sliderStartX = 0;
+        const auto sliderStartY = bounds.getHeight() / 2 - (sliderHeight / 2);
+    
+        attackSlider.setBounds(sliderStartX, sliderStartY, sliderWidth, sliderHeight);
+        decaySlider.setBounds(attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+        sustainSlider.setBounds(decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+        releaseSlider.setBounds(sustainSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+    }
+                </code>
+            </pre>
+
+            <p>This code is identical to the one shown in the video. In case you're interested in making a plugin yourself, I highly recommend checking out <u><a href="https://www.youtube.com/@TheAudioProgrammer" target="_blank">TheAudioProgrammer channel</a></u>, and the AudioProgrammer community.</p>
+
+            <h2 id="max-for-live-fm-synth">Max for Live FM Synth</h2>
+            <p>Yesterday I had the idea to make some M4L devices too. I thought it would be a pretty neat thing to make effects and instruments for Ableton, since I use it all the time anyway.</p>
+            <p>Back in 2020 my friend instructed me on how to make my first M4L device, which was a ringmod effect. Since then I forgot <b>everything</b> about Max.</p>
+            <p>I followed along <u><a href="https://www.youtube.com/watch?v=C9yj-J3V21o" target="_blank">this video</a></u> after rediscovering the basics. I made next to no changes with the code itself because I don't know how, but decided to keep the two scopes in my final product that were deleted in the video.</p>
+            <p>My synth is also, not polyphonic. For some reason I had no audio output at the end, after implementing polyphony, so I reverted the changes to have a working instrument because I'm not sure I' d like to work anymore on this particular project.</p>
+
+            <div class="article-img">
+                <img src="../res/audio002.png">
+            </div>
+
+            <h2 id="conclusion">Conclusion</h2>
+            <p>This was productive day, although this isn't my achievement - instead I stayed in tutorial hell for a bit more time. Nevertheless, I'm glad I started making Max for Live devices, and I'm definitely planning on making more in the future, alongside with more VST plugin with JUCE.</p>
+
+            <div class="article-img">
+                <img src="../res/audio001.png">
+            </div>
+        </div>
+    </section>
+
+    <section id="footer">
+        <footer>
+            <div class="footer-content">
+                <p>© The Blue Stoplight 2024</p>
+            </div>
+        </footer>
+    </section>
+</body>
+</html>
