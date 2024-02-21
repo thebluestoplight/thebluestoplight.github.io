@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The Blue Stoplight | Studying Machine Learning #1</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section id="article">
+        <div class="article-heading">
+            <span>Studying Machine Learning #1</span>
+            <a href="../index.html"><h3>The Blue Stoplight</h3></a>
+            <span>The start of my ML studying journey - Linear Regression and K-Nearest Neighbours</span>
+        </div>
+
+        <div class="article-item-individual">
+            <h2>Table of Contents</h2>
+            <div class="toc">
+                <ol>
+                    <a href="#introduction"><li>Introduction</li></a>
+                    <a href="#sources"><li>Sources</li></a>
+                    <a href="#lr"><li>Linear Regression</li></a>
+                    <a href="#knn"><li>K-Nearest Neighbours</li></a>
+                    <a href="#conclusion"><li>Conclusion</li></a>
+                </ol>
+            </div>
+
+            <h2 id="introduction">Introduction</h2>
+            <p>While making my lyrics generator project I figured that I should've probably started with programs that are easier to understand. I had next to no prior experience with AI programming, so it still can be problematic for me to follow along such guides.</p>
+            <p>This time I expermineted with the fundamental algorithms of ML - Linear Regression and K-Nearest Neighbours.</p>
+
+            <h2 id="sources">Sources</h2>
+            <p>For this process I based my projects off of <u><a target="_blank" href="https://www.youtube.com/@NeuralNine">NeuralNine's</a></u> tutorials. He made great videos of explaining the maths behind these functions while providing example code written in Python. For in depth explanations please check the channel out.</p>
+            <p>I used two datasets from Kaggle for the two algorithms.</p>
+            <ul>
+                <li><u><a target="_blank" href="https://www.kaggle.com/datasets/yasserh/song-popularity-dataset">Song Popularity Dataset</a></u></li>
+                <li><u><a target="_blank" href="https://www.kaggle.com/datasets/amansaxena/lifeexpectancy">Life Expectancy of the World</a></u></li>
+            </ul>
+            <p>For the second one (used for KNN), I basically just grabbed some numbers from the dataset, and also tried using some randomization because, for now, I just wanted to test, and figure out my functions, so the results <b>will be</b> nonsensical.</p>
+
+            <h2 id="lr">Linear Regression</h2>
+            <p>For Linear Regression I took the "song_popularity" and the "speechiness" columns of the Song Popularity Dataset and set them as my axis. This is what this data alone looks like on a coordinate system:</p>
+
+            <div class="article-img">
+                <img src="../res/ml00.png">
+            </div>
+
+            <p>After that I followed the tutorial and wrote the appropriate code to calculate the function.</p>
+            <p>The main loop for calculating <i>m</i> and <i>b</i>:</p>
+            
+            <pre>
+                <code>
+    m = 0
+    b = 0
+    learning_rate = 0.0001
+    epochs = 150
+    
+    for i in range(epochs):
+        m, b = gradient_descent(m, b, data, learning_rate)
+        
+        print(f"[Current Iteration Number]: {i}")
+        # print(f"[Current Loss]: {loss(m, b, data)}")
+                </code>
+            </pre>
+
+            <p>These settings led to the following results:</p>
+
+            <div class="article-img">
+                <img src="../res/ml01.png">
+            </div>
+
+            <h2 id="knn">K-Nearest Neightbours</h2>
+            <p>The KNN was trickier. As I earlier said, I just took the int values of the ages from the dataset, and set them as coordinates. I tried randomizing them at first, but later I switched to other fixed values from the dataset.</p>
+            <p>This program took a bit more time to complete, since I had to implement a way of using a CSV dataset instead of the dictionary handwritten in the tutorial. Let me show you some of my snippets:</p>
+
+            <pre>
+                <code>
+    # Import
+
+    data = pan.read_csv('datasets/life.csv', encoding="ISO-8859-1", usecols=['overall', 'male', 'female'])
+    points = data.to_dict()
+    
+    # Predict (inside of the KNN class)
+    
+    def predict(self, n_point):
+            distances = []
+    
+            for category in self.points:
+                for i, point in enumerate(self.points[category]):
+                    if (category == 'male'):
+                        distance = eculidean_distance([point, -points['overall'][i]], n_point)
+                    else:
+                        distance = eculidean_distance([point, points['overall'][i]], n_point)
+                    distances.append([distance, category])
+    
+            categories = [category[1] for category in sorted(distances)[:self.k]]
+            result = Counter(categories).most_common(1)[0][0]
+    
+            return result
+    
+    # Visualization
+    
+    for i, point in enumerate(points['male']):
+        ax.scatter(point, -points['overall'][i], color="#1E8AA9", s=60)
+        
+    for i, point in enumerate(points['female']):
+        ax.scatter(point, points["overall"][i], color="#9271D9", s=60)
+                </code>
+            </pre>
+
+            <p>As you can see the coordinates are all just made up, they do **not** represent any valuable information. Next time I'll make sure to choose a dataset that I can use at my level. I'm sure I could've made it work somehow with my code, but I just couldn't think outside of the box.</p>
+            <p>Here are my result with two sample testing points:</p>
+
+            <div class="article-img">
+                <img src="../res/ml02.png">
+            </div>
+
+            <div class="article-img">
+                <img src="../res/ml03.png">
+            </div>
+
+            <h2 id="conclusion">Conclusion</h2>
+            <p>I think this was a great way to practice, and introduce myself to the most basic concepts. I'm looking forward to continue this journey, and learn more about more advanced topics of ML.</p>
+        </div>
+    </section>
+
+    <section id="footer">
+        <footer>
+            <div class="footer-content">
+                <p>© The Blue Stoplight 2024</p>
+            </div>
+        </footer>
+    </section>
+</body>
+</html>
